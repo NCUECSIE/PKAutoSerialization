@@ -12,19 +12,35 @@ extension Optional: PKPrimitiveConvertible {
         }
     }
     public static func deserialize(from primitive: Primitive) -> Optional<Wrapped>? {
-        if primitive is Null { // .none
-            return .some(.none)
-        } else { // .some
-            if Wrapped.self is PKPrimitiveConvertible.Type {
-                let WrappedConvertible = Wrapped.self as! PKPrimitiveConvertible.Type
-                guard let wrappedConvertible = WrappedConvertible.deserialize(from: primitive) as? Wrapped else { return nil }
-                return .some(.some(wrappedConvertible))
-            }
-            guard let wrapped = primitive as? Wrapped else { return nil }
-            return .some(.some(wrapped))
-        }
+        fatalError("To deserialize Optionals<T>, your type must conform to Primitive.")
     }
     public func convert<DT>(to type: DT.Type) -> DT.SupportedValue? where DT : DataType {
         fatalError()
     }
 }
+
+extension Optional where Wrapped: Primitive {
+    public static func deserialize(from primitive: Primitive) -> Optional<Wrapped>? {
+        if primitive is Null {
+            return .some(.none)
+        } else {
+            guard let wrapped = primitive as? Wrapped else {
+                return nil
+            }
+            return .some(.some(wrapped))
+        }
+    }
+}
+extension Optional where Wrapped: PKPrimitiveConvertible {
+    public static func deserialize(from primitive: Primitive) -> Optional<Wrapped>? {
+        if primitive is Null {
+            return .some(.none)
+        } else {
+            guard let wrappedConvertible = Wrapped.deserialize(from: primitive) else {
+                return nil
+            }
+            return .some(.some(wrappedConvertible))
+        }
+    }
+}
+
