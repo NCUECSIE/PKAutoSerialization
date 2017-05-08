@@ -1,5 +1,4 @@
 import XCTest
-import MongoKitten
 import BSON
 @testable import AutoSerialization
 

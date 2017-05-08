@@ -1,7 +1,18 @@
 {
   "autoPin": true,
   "pins": [
-
+    {
+      "package": "BSON",
+      "reason": null,
+      "repositoryURL": "https://github.com/OpenKitten/BSON.git",
+      "version": "5.0.3"
+    },
+    {
+      "package": "KittenCore",
+      "reason": null,
+      "repositoryURL": "https://github.com/OpenKitten/KittenCore.git",
+      "version": "0.2.3"
+    }
   ],
   "version": 1
 }
