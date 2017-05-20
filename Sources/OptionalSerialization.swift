@@ -19,7 +19,7 @@ extension Optional: PKPrimitiveConvertible {
     }
 }
 
-extension Optional where Wrapped: Primitive {
+public extension Optional where Wrapped: Primitive {
     public static func deserialize(from primitive: Primitive) -> Optional<Wrapped>? {
         if primitive is Null {
             return .some(.none)
@@ -31,7 +31,7 @@ extension Optional where Wrapped: Primitive {
         }
     }
 }
-extension Optional where Wrapped: PKPrimitiveConvertible {
+public extension Optional where Wrapped: PKPrimitiveConvertible {
     public static func deserialize(from primitive: Primitive) -> Optional<Wrapped>? {
         if primitive is Null {
             return .some(.none)
