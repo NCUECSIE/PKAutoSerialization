@@ -2,6 +2,10 @@ import BSON
 
 /// 用映射 API 將 Tuple 序列化
 public func serializeTuple(_ tuple: Any) -> [Primitive] {
+    if tuple is PKPrimitiveConvertible {
+        let value = tuple as! PKPrimitiveConvertible
+        return [try! value.serialize()]
+    }
     if let tuple = tuple as? Primitive {
         return [tuple]
     }
